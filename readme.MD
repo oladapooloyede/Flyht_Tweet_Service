@@ -1,5 +1,5 @@
 #Pre-compilation
-Kindly adding Twitter credentials to TwitterMessageProcessor#authentication method.
+Kindly add Twitter credentials to TwitterMessageProcessor#authentication method.
 
 #Compilation
 

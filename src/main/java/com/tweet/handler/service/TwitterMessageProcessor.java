@@ -6,6 +6,7 @@ import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class TwitterMessageProcessor {
@@ -64,7 +65,8 @@ public class TwitterMessageProcessor {
      */
     private static FilterQuery addQuery() {
         FilterQuery tweetFilterQuery = new FilterQuery();
-        tweetFilterQuery.track((String[])Topic.getTopics().toArray());
+        Set<String> topics = Topic.getTopics();
+        tweetFilterQuery.track(topics.toArray(new String[0]));
         tweetFilterQuery.language(new String[]{"en"}); // Note that language does not work properly on Norwegian tweets
 
         return tweetFilterQuery;
@@ -78,6 +80,10 @@ public class TwitterMessageProcessor {
             public void onStatus(Status status) {
                 try {
                     for(HashtagEntity hashTag: status.getHashtagEntities()) {
+                        if (!Topic.getTopics().contains(hashTag.getText()))
+                        {
+                            continue;
+                        }
                         TweetFile file = new TweetFile(hashTag.getText());
                         file.write(status.getText()); // save to file
                     }

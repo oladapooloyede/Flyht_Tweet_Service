@@ -11,8 +11,6 @@ public class CommandLineRunner {
 
     private static final Logger logger = Logger.getLogger(CommandLineRunner.class.getName());
     private static String STARTUP_MESSAGE_TEMPLATE = "Kindly Supply Topic %d :";
-    private static final String TWEET_MESSAGE_TEMPLATE = "Kindly Stop streaming by typing - END";
-    private static final String TERMINATION_STRING = "END";
 
     public static void main (String[] args) throws IOException {
 
@@ -25,11 +23,5 @@ public class CommandLineRunner {
 
         //Start Streaming
         TwitterMessageProcessor.init();
-
-        String message;
-        while(!(message = scanner.nextLine()).equalsIgnoreCase(TERMINATION_STRING)) {
-            System.out.println(TWEET_MESSAGE_TEMPLATE);
-        }
-
     }
 }
