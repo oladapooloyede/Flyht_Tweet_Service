@@ -77,8 +77,10 @@ public class TwitterMessageProcessor {
         twitterStream.addListener(new StatusListener() {
             public void onStatus(Status status) {
                 try {
-                    TweetFile file = new TweetFile(status.getUser().getURLEntity().getText());
-                    file.write(status.getText()); // save to file
+                    for(HashtagEntity hashTag: status.getHashtagEntities()) {
+                        TweetFile file = new TweetFile(hashTag.getText());
+                        file.write(status.getText()); // save to file
+                    }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
